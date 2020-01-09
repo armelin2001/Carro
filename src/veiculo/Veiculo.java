@@ -1,159 +1,103 @@
-package veiculo;
-
-import java.util.Scanner;
-public class Veiculo {
-	static String marca;
-	static String modelo;
-	static String placa;
-	static String cor;
-	static float km;
-	static int litrosCombustivel;
-	static int velocidade;
-	static double preco;
-	static boolean isLigado;
-	public Veiculo() {
-		
+public class Veiculo{
+	// serialize serve para armazenar objetos em um array e dps em um arquivo de pesistenia
+	// irei usar o serilize nas classes filhas pois assim fica mais facil
+	private String marca;
+	private String cor;
+	private String placa;
+	private String modelo;
+	private int litrosCombustivel;
+	private int velocidade;
+	private  boolean isLigado;
+	//metodo construtor
+	public Veiculo(String marca, String cor, String placa, String modelo) {
+		this.setMarca(marca);
+		this.setCor(cor);
+		this.setPlaca(placa);
+		this.setModelo(modelo);
 	}
-	public static boolean isLigado() {
+	// get and seters
+	public boolean isLigado() {
 		return isLigado;
 	}
-	public static void setLigado(boolean isLigado) {
-		Veiculo.isLigado = isLigado;
+	public void setLigado(boolean isLigado) {
+		this.isLigado = isLigado;
+	}
+	
+	public int getLitrosCombustivel() {
+		return litrosCombustivel;
+	}
+	public void setLitrosCombustivel(int litrosCombustivel) {
+		this.litrosCombustivel = litrosCombustivel;
+	}
+	public int getVelocidade() {
+		return velocidade;
+	}
+	public void setVelocidade(int velocidade) {
+		this.velocidade = velocidade;
 	}
 	public String getMarca() {
 		return marca;
 	}
 	public void setMarca(String marca) {
-		Veiculo.marca = marca;
+		this.marca = marca;
 	}
-	public String getModelo() {
-		return modelo;
+	public String getCor() {
+		return cor;
 	}
-	public void setModelo(String modelo) {
-		Veiculo.modelo = modelo;
+	public void setCor(String cor) {
+		this.cor = cor;
 	}
 	public String getPlaca() {
 		return placa;
 	}
 	public void setPlaca(String placa) {
-		Veiculo.placa = placa;
+		this.placa = placa;
 	}
-	public static String getCor() {
-		return cor;
+	public String getModelo() {
+		return modelo;
 	}
-	public static void setCor(String cor) {
-		Veiculo.cor = cor;
+	public void setModelo(String modelo) {
+		this.modelo = modelo;
 	}
-	public float getKm() {
-		return km;
+	public String toString() {
+		String retorno;
+		retorno="Marca: "+ this.getMarca()+
+				"Cor" + this.getCor()+
+				"Placa" + this.getPlaca()+
+				"Modelo" + this.getModelo();
+		return retorno;
+
 	}
-	public void setKm(float km) {
-		Veiculo.km = km;
-	}
-	public static int getLitrosCombustivel() {
-		return litrosCombustivel;
-	}
-	public static void setLitrosCombustivel(int litrosCombustivel) {
-		Veiculo.litrosCombustivel = litrosCombustivel;
-	}
-	public static int getVelocidade() {
-		return velocidade;
-	}
-	public static void setVelocidade(int velocidade) {
-		Veiculo.velocidade = velocidade;
-	}
-	public double getPreco() {
-		return preco;
-	}
-	public void setPreco(double preco) {
-		Veiculo.preco = preco;
-	}
-	public static void acelerar() {
-		setVelocidade(20);
-		setLitrosCombustivel(-1);
-	}
-	public static void abastecer(int qtdLitros) {
-		if(qtdLitros>100) {
+	public int abastecer(int gas) {
+		if(gas<80) {
+			setLitrosCombustivel(gas);
 			System.out.println("O tanque do carro esta cheio");
+			}
+		else {
+			System.out.println("o valor passou 80 litros");
 		}
+		return gas;
 	}
-	public static void frear(){
+	public int acelerar() {
+		return 0;
+	}
+	public String pintar(String cor) {
+		String a = null;
+		if(cor != getCor()) {
+			setCor(cor);
+			System.out.println("A cor do seu carro é "+ getCor());
+		}
+		else {
+			System.out.println("O seu carro ja esta pintado com essa cor");
+		}
+		return a;
+	}
+	public void frear() {
 		if(getVelocidade()>0) {
 			setVelocidade(-10);
-		}
-	}
-	public static void pintar(String cor) {
-		setCor(cor);
-	}
-	public static void ligar() {
-		setLigado(true);
-	}
-	public static void desligar() {
-		setLigado(false);
-	}
-	public static void main(String[] args) {
-		while (true) {
-		Scanner leitura = new Scanner(System.in);
-		System.out.println("Digite 1 para ligar\n"
-				+ "Digite 2 para acelerar\n"
-				+ "Digite 3 para frear o carro\n"
-				+ "Digite 4 para abastecer\n"
-				+ "Digite 5 para desligar o carro\n"
-				+ "Digite 6 para definir ou trocar a cor do carro\n"
-				+ "Digite 7 para sair do programa\n");
-		int escolha = leitura.nextInt();
-		if (escolha == 1) {
-			ligar();
-			continue;
-		}
-		if (escolha ==2) {
-			if(isLigado()==true) {
-				 acelerar();
-				 System.out.println("Sua velocidade é de " + getVelocidade());
-				 continue;
-			 }
-			else {
-				System.out.println("Por favor ligue o veiculo antes\n");
-				continue;
 			}
+		else {
+			System.out.println("Sua velocidade esta abaixo da velocidade minima! ");
 		}
-		if (escolha == 3) {
-			 if(isLigado()==true) {
-				 frear();
-				 continue;
-			 }
-			 else {
-				 System.out.println("Por favor ligue o veiculo antes\n");
-				 continue;
-			 }
-		}
-		if (escolha == 4) {
-			System.out.println("Digite a quantidade desejada a ser abstecida");
-			System.out.println("Quantidade maxima 100 litros");
-			int gas = leitura.nextInt();
-			abastecer(gas);
-			System.out.println("voce possui"+getLitrosCombustivel()+"de combustivel\n");
-			continue;
-		}
-		if (escolha == 5) {
-			if(isLigado == false){
-				System.out.println("O veiculo ja esta desligado\n");
-				continue;
-			}
-			desligar();
-			continue;
-		}
-		if (escolha == 6) {
-			System.out.println("Escreva o nome da cor que deseja que o carro tenha\n");
-			cor = leitura.nextLine();
-			pintar(cor);
-			System.out.println("sua cor é" + getCor());
-		}
-		if (escolha == 7) {
-			System.exit(0);;
-			break;
-		}
-		
 	}
-	}	
-}
+};
